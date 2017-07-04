@@ -26,7 +26,12 @@ router.post('/login/', function(req, res){
 });
 router.post('/signupPage/', function(req, res){
   loginSignup.addUserToUsersTable(req);
-  res.send(loginSignup.confirmPassword(req));
+  if (loginSignup.confirmPassword(req)){
+    res.render('thankYou');
+  } else {
+    res.render('invalidSignup');
+  }
+
 })
 router.post('/loginPage/', function(req, res){
   let username = req.body.usernameInputLogin;
@@ -49,13 +54,30 @@ router.post('/loginPage/', function(req, res){
         req.session.authenticated = false;
       };
       if (req.session.authenticated){
-        res.send("successful login");
+        req.session.username = username;
+        req.session.password = password;
+        res.redirect('/homeScreen');
       } else {
         res.send("incorrect password");
       }
     }
     console.log(req.session);
   })
+});
+router.get('/homeScreen/', function(req, res){
+  res.render('homeScreen', {
+    theSession: req.session
+  });
 })
+router.get('/createPost/', function(req, res){
+  res.render('createPost');
+});
+router.get('/yourProfile/', function(req, res){
+  res.render('yourProfile');
+})
+router.get('/logOut/', function(req, res){
+  res.send('attempting to logout')
+})
+
 
 module.exports = router;
