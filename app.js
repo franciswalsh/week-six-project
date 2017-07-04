@@ -3,6 +3,10 @@ const mustache = require('mustache-express');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 const session = require('express-session');
+const routes = require("./routes");
+// const morgan = require("morgan");
+const loginSignup = require('./loginSignupFunctions.js')
+const models = require('./models')
 
 const app = express();
 
@@ -20,13 +24,22 @@ app.use(session({
 }));
 
 app.use(express.static(__dirname));
+app.use('/static', express.static('static'));
 app.engine('mustache', mustache());
 app.set('view engine', 'mustache');
 app.set('views', './views');
 
+// app.use(morgan('dev'))
+
+app.use(routes);
+
 app.get('/', function(req, res){
-  res.send("hello world");
+  res.redirect('/loginScreen/');
 })
+app.get('/loginScreen/', function(req, res){
+  res.render('loginScreen');
+})
+
 
 app.listen(3000, function(){
   console.log('Successfully started express application!');
