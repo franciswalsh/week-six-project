@@ -25,14 +25,24 @@ router.post('/login/', function(req, res){
   res.render('login');
 });
 router.post('/signupPage/', function(req, res){
-  loginSignup.addUserToUsersTable(req);
-  if (loginSignup.confirmPassword(req)){
-    res.render('thankYou');
-  } else {
-    res.render('invalidSignup');
-  }
-
-})
+  let username = req.body.usernameInputSignup;
+  models.Users.findOne({
+    where: {
+      username: username
+    }
+  }).then(function(user){
+    if (user === null){
+      loginSignup.addUserToUsersTable(req);
+      if (loginSignup.confirmPassword(req)){
+        res.render('thankYou');
+      } else {
+        res.render('invalidSignup');
+      }
+    } else {
+      res.send("username already exists");
+    }
+  });
+});
 router.post('/loginPage/', function(req, res){
   let username = req.body.usernameInputLogin;
   let password = req.body.passwordInputLogin;
@@ -88,12 +98,15 @@ router.post('/newPost/', function(req, res){
   res.redirect('/mainFeed');
 });
 router.get('/mainFeed/', function(req, res){
+
   models.Posts.findAll().then(function(posts){
+    console.log(posts[1].id);
+    post.countingLikes(req, posts);
     res.render('mainFeed', {
       theSession: req.session,
       posts: posts
     })
-  })
+  });
 });
 router.post('/yesLogout/', function(req, res){
   req.session.destroy();
@@ -103,12 +116,13 @@ router.post('/noLogout/', function(req, res){
   res.redirect('/homeScreen/');
 });
 router.post('/likePost/:id', function(req, res){
-  let id = req.params.id;
-
-  models.Posts.update({numberoflikes: 2}, {where: {id: id}}).then(function(){
-    res.redirect('/mainFeed/')
-  })
-  // res.send(req.session);
+  let postid = req.params.id;
+  post.updateLikesTable(req);
+  res.redirect('/mainFeed');
+});
+router.get('/likedBy', function(req, res){
+  // res.render('likedBy');
+  res.send(post.whoLikedThePost(req, 5));
 })
 
 module.exports = router;

@@ -5,12 +5,10 @@ module.exports = function(sequelize, DataTypes) {
     numberoflikes: DataTypes.INTEGER,
     userid: DataTypes.INTEGER,
     username: DataTypes.STRING
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
+  }, {});
+
+    Posts.associate = function(models){
+      Posts.belongsTo(models.Users, {as: 'Users', foreignKey: 'userid'})
     }
-  });
   return Posts;
 };

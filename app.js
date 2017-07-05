@@ -40,7 +40,6 @@ app.get('/loginScreen/', function(req, res){
   res.render('loginScreen');
 })
 
-
 app.listen(3000, function(){
   console.log('Successfully started express application!');
 })
