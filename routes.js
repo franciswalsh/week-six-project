@@ -6,7 +6,7 @@ const session = require('express-session');
 const expressValidator = require('express-validator');
 const mustacheExpress = require('mustache-express');
 const loginSignup = require('./loginSignupFunctions.js');
-
+const post = require('./postingFunctions.js');
 
 router.get('/signup/', function(req, res){
   res.send("this is the signup router.get")
@@ -45,7 +45,7 @@ router.post('/loginPage/', function(req, res){
     if (user === null){
       req.session.incorrectUsernameCount+=1;
       req.session.authenticated = false;
-      res.send("incorrect username");
+      res.send("You don't have an account");
     } else {
       if (user.password === password){
         req.session.authenticated = true;
@@ -56,6 +56,7 @@ router.post('/loginPage/', function(req, res){
       if (req.session.authenticated){
         req.session.username = username;
         req.session.password = password;
+        req.session.userid = user.dataValues.id
         res.redirect('/homeScreen');
       } else {
         res.send("incorrect password");
@@ -68,16 +69,46 @@ router.get('/homeScreen/', function(req, res){
   res.render('homeScreen', {
     theSession: req.session
   });
-})
+});
 router.get('/createPost/', function(req, res){
-  res.render('createPost');
+  res.render('createPost', {
+    theSession: req.session
+  });
 });
 router.get('/yourProfile/', function(req, res){
-  res.render('yourProfile');
-})
+  res.render('yourProfile', {
+    theSession: req.session
+  });
+});
 router.get('/logOut/', function(req, res){
-  res.send('attempting to logout')
-})
+  res.render('logout');
+});
+router.post('/newPost/', function(req, res){
+  post.addPostToPostsTable(req);
+  res.redirect('/mainFeed');
+});
+router.get('/mainFeed/', function(req, res){
+  models.Posts.findAll().then(function(posts){
+    res.render('mainFeed', {
+      theSession: req.session,
+      posts: posts
+    })
+  })
+});
+router.post('/yesLogout/', function(req, res){
+  req.session.destroy();
+  res.redirect('/');
+});
+router.post('/noLogout/', function(req, res){
+  res.redirect('/homeScreen/');
+});
+router.post('/likePost/:id', function(req, res){
+  let id = req.params.id;
 
+  models.Posts.update({numberoflikes: 2}, {where: {id: id}}).then(function(){
+    res.redirect('/mainFeed/')
+  })
+  // res.send(req.session);
+})
 
 module.exports = router;

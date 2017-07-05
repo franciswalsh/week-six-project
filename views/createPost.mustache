@@ -6,11 +6,17 @@
   </head>
   <body>
     <nav>
-      <a href="homeScreen">Main Feed</a>
+      <a href="homeScreen">Home Screen</a>
+      <a href="mainFeed">Main Feed</a>
       <a href="createPost">Create a new post</a>
       <a href="yourProfile">{{#theSession}}{{username}}{{/theSession}}'s Profile</a>
       <a href="logOut">Log out</a>
     </nav>
-    <p>create a new post</p>
+    <h3>Create a new post here</h3>
+    <form action="/newPost/" method="post">
+      <textarea placeholder="start typing your post" name="newPost">
+      </textarea>
+      <input type=submit id="postButton" value="post!">
+    </form>
   </body>
 </html>

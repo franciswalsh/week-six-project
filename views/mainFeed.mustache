@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Main feed</title>
+  </head>
+  <body>
+    <nav>
+      <a href="homeScreen">Home Screen</a>
+      <a href="mainFeed">Main Feed</a>
+      <a href="createPost">Create a new post</a>
+      <a href="yourProfile">{{#theSession}}{{username}}{{/theSession}}'s Profile</a>
+      <a href="logOut">Log out</a>
+    </nav>
+    {{#posts}}
+    <ul>
+      <li>
+        <div>
+          <h6>posted by: {{username}}</h6>
+          <p>{{postcontent}}</p>
+          <form id="likePost" action="/likePost/{{id}}" method="post">
+            <input type="submit" id="likePostButton" value="like">
+          </form>
+          <p> Likes: {{numberoflikes}}</p>
+        </div>
+      </li>
+    </ul>
+    {{/posts}}
+  </body>
+</html>
