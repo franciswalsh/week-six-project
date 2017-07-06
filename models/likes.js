@@ -5,12 +5,12 @@ module.exports = function(sequelize, DataTypes) {
     userid: DataTypes.INTEGER
   }, {});
 
-  // Likes.associate = function(models){
-  //   Likes.hasOne(models.Users, {as: 'Users', foreignKey: 'userid'})
-  // }
-  // Likes.associate = function(models){
-  //   Likes.hasOne(models.Posts, {as: 'Posts', foreignKey: 'postid'})
-  // }
+  Likes.associate = function(models){
+    Likes.belongsTo(models.Users, {as: 'Users', foreignKey: 'userid'})
+  }
+  Likes.associate = function(models){
+    Likes.belongsTo(models.Posts, {as: 'Posts', foreignKey: 'postid'})
+  }
 
   return Likes;
 };

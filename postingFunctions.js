@@ -22,6 +22,7 @@ function updateLikesTable(req){
     postid: postid,
     userid: userid
   })
+  console.log(newLike);
   newLike.save();
 }
 
@@ -44,9 +45,7 @@ function whoLikedThePost(req, postid){
       postid: postid
     }
   }).then(function(likes){
-    // console.log(likes[0]);
-    console.log(likes);
-
+    console.log("this is likes", likes);
   })
   // return results;
 }

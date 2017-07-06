@@ -100,7 +100,6 @@ router.post('/newPost/', function(req, res){
 router.get('/mainFeed/', function(req, res){
 
   models.Posts.findAll().then(function(posts){
-    console.log(posts[1].id);
     post.countingLikes(req, posts);
     res.render('mainFeed', {
       theSession: req.session,
@@ -122,7 +121,7 @@ router.post('/likePost/:id', function(req, res){
 });
 router.get('/likedBy', function(req, res){
   // res.render('likedBy');
-  res.send(post.whoLikedThePost(req, 5));
+  res.send(post.whoLikedThePost(req, 9));
 })
 
 module.exports = router;
