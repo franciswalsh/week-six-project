@@ -135,7 +135,7 @@ router.post('/likePost/:id', function(req, res){
   post.updateLikesTable(req);
   res.redirect('/mainFeed');
 });
-router.get('/likedBy/:id', function(req, res){
+router.get('/likedBy/:id/', function(req, res){
   let postid = req.params.id;
   if (req.session.authenticated === true){
     models.Likes.findAll({
@@ -161,7 +161,22 @@ router.get('/likedBy/:id', function(req, res){
   } else {
     res.send("not authenticated please go back and sign in");
   }
+});
+router.post('/homeScreen', function(req, res){
+  res.redirect('/homeScreen');
+});
+router.post('/mainFeed', function(req, res){
+  res.redirect('/mainFeed');
+});
+router.post('/createPost', function(req, res){
+  res.redirect('/createPost');
+});
+router.post('/yourProfile', function(req, res){
+  res.redirect('/yourProfile');
+});
+router.post('/logOut', function(req, res){
+  res.redirect('/logOut');
+});
 
-})
 
 module.exports = router;

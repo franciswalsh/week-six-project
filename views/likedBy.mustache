@@ -5,6 +5,23 @@
     <title></title>
   </head>
   <body>
+    <nav>
+      <form class="homeScreenTab" action="/homeScreen" method="post">
+        <input type="submit" class="homeScreenButton" value="Home Screen">
+      </form>
+      <form class="mainFeedTab" action="/mainFeed" method="post">
+        <input type="submit" class="mainFeedButton" value="Main Feed">
+      </form>
+      <form class="createPostTab" action="/createPost" method="post">
+        <input type="submit" class="createPostButton" value="Create Post">
+      </form>
+      <form class="homyourProfile" action="/yourProfile" method="post">
+        <input type="submit" class="yourProfileButton" value="{{#theSession}}{{username}}{{/theSession}}'s Profile">
+      </form>
+      <form class="logOutTab" action="/logOut" method="post">
+        <input type="submit" class="logOutButton" value="Log Out">
+      </form>
+    </nav>
     <h2>The post was liked by:</h2>
     <ul>
       {{#thisPostWasLikedBy}}

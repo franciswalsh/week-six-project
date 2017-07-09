@@ -6,11 +6,21 @@
   </head>
   <body>
     <nav>
-      <a href="homeScreen">Home Screen</a>
-      <a href="mainFeed">Main Feed</a>
-      <a href="createPost">Create a new post</a>
-      <a href="yourProfile">{{#theSession}}{{username}}{{/theSession}}'s Profile</a>
-      <a href="logOut">Log out</a>
+      <form class="homeScreenTab" action="/homeScreen" method="post">
+        <input type="submit" class="homeScreenButton" value="Home Screen">
+      </form>
+      <form class="mainFeedTab" action="/mainFeed" method="post">
+        <input type="submit" class="mainFeedButton" value="Main Feed">
+      </form>
+      <form class="createPostTab" action="/createPost" method="post">
+        <input type="submit" class="createPostButton" value="Create Post">
+      </form>
+      <form class="homyourProfile" action="/yourProfile" method="post">
+        <input type="submit" class="yourProfileButton" value="{{#theSession}}{{username}}{{/theSession}}'s Profile">
+      </form>
+      <form class="logOutTab" action="/logOut" method="post">
+        <input type="submit" class="logOutButton" value="Log Out">
+      </form>
     </nav>
     <p>your profile</p>
   </body>
