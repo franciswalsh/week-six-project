@@ -7,7 +7,9 @@ module.exports = function(sequelize, DataTypes) {
   }, {});
 
   Users.associate = function(models){
-    Users.belongsToMany(models.Likes, {through: models.Likes})
+    Users.hasMany(models.Likes, {as: 'LikesByUser', foreignKey: 'userid'});
+    Users.hasMany(models.Posts, {as: 'UserPosts', foreignKey: 'userid'});
+    Users.belongsToMany(models.Posts, {as: 'LikedPost', through: models.Likes, foreignKey: 'userid', otherKey: 'postid'})
   }
   return Users;
 };

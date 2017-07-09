@@ -8,6 +8,7 @@ const mustacheExpress = require('mustache-express');
 const loginSignup = require('./loginSignupFunctions.js');
 const post = require('./postingFunctions.js');
 
+
 router.get('/signup/', function(req, res){
   res.send("this is the signup router.get")
 });
@@ -76,19 +77,31 @@ router.post('/loginPage/', function(req, res){
   })
 });
 router.get('/homeScreen/', function(req, res){
-  res.render('homeScreen', {
-    theSession: req.session
-  });
+  if (req.session.authenticated === true){
+    res.render('homeScreen', {
+      theSession: req.session
+    });
+  } else {
+    res.send("not authenticated please go back and sign in");
+  }
 });
 router.get('/createPost/', function(req, res){
-  res.render('createPost', {
-    theSession: req.session
-  });
+  if (req.session.authenticated === true){
+    res.render('createPost', {
+      theSession: req.session
+    });
+  } else {
+    res.send("not authenticated please go back and sign in");
+  }
 });
 router.get('/yourProfile/', function(req, res){
-  res.render('yourProfile', {
-    theSession: req.session
-  });
+  if (req.session.authenticated === true){
+    res.render('yourProfile', {
+      theSession: req.session
+    });
+  } else {
+    res.send("not authenticated please go back and sign in");
+  }
 });
 router.get('/logOut/', function(req, res){
   res.render('logout');
@@ -98,14 +111,17 @@ router.post('/newPost/', function(req, res){
   res.redirect('/mainFeed');
 });
 router.get('/mainFeed/', function(req, res){
-
-  models.Posts.findAll().then(function(posts){
-    post.countingLikes(req, posts);
-    res.render('mainFeed', {
-      theSession: req.session,
-      posts: posts
-    })
-  });
+  if (req.session.authenticated === true){
+    models.Posts.findAll().then(function(posts){
+      post.countingLikes(req, posts);
+      res.render('mainFeed', {
+        theSession: req.session,
+        posts: posts
+      })
+    });
+  } else {
+    res.send("not authenticated please go back and sign in");
+  }
 });
 router.post('/yesLogout/', function(req, res){
   req.session.destroy();
@@ -119,9 +135,33 @@ router.post('/likePost/:id', function(req, res){
   post.updateLikesTable(req);
   res.redirect('/mainFeed');
 });
-router.get('/likedBy', function(req, res){
-  // res.render('likedBy');
-  res.send(post.whoLikedThePost(req, 9));
+router.get('/likedBy/:id', function(req, res){
+  let postid = req.params.id;
+  if (req.session.authenticated === true){
+    models.Likes.findAll({
+      where: {
+        postid: postid
+      },
+      include: [
+        {
+          model: models.Users,
+          as: 'UserWhoLiked'
+        }
+      ]
+    }).then(function(findingUsers){
+        let thePostWasLikeBy = []
+        for (let i in findingUsers){
+          thePostWasLikeBy.push(findingUsers[i].UserWhoLiked.username)
+      }
+        res.render('likedBy', {
+          theSession: req.session,
+          thisPostWasLikedBy: thePostWasLikeBy
+        })
+    })
+  } else {
+    res.send("not authenticated please go back and sign in");
+  }
+
 })
 
 module.exports = router;

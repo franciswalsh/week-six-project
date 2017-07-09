@@ -6,5 +6,10 @@
   </head>
   <body>
     <h2>The post was liked by:</h2>
+    <ul>
+      {{#thisPostWasLikedBy}}
+        <li>{{.}}</li>
+      {{/thisPostWasLikedBy}}
+    </ul>
   </body>
 </html>

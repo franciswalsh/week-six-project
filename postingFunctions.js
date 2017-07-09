@@ -39,20 +39,9 @@ function countingLikes(req, posts){
     })
   }
 }
-function whoLikedThePost(req, postid){
-  models.Likes.findAll({
-    where: {
-      postid: postid
-    }
-  }).then(function(likes){
-    console.log("this is likes", likes);
-  })
-  // return results;
-}
 
 module.exports = {
   addPostToPostsTable: addPostToPostsTable,
   updateLikesTable: updateLikesTable,
-  countingLikes: countingLikes,
-  whoLikedThePost: whoLikedThePost
+  countingLikes: countingLikes
 }

@@ -1,3 +1,31 @@
+/*-----------------Stylying for nav--------------------------*/
+
+
+/*-----------------Styling for main feed---------------------*/
 body {
-  background-color: red;
+}
+.posts {
+  display: flex;
+  border-color: navy;
+  border-style: solid;
+  border-width: thin;
+  justify-content: space-around;
+  color: navy;
+  background-color: lightblue;
+}
+.postContent {
+  width: 50%;
+}
+.posts h4 {
+  margin-top: 1%;
+  margin-right: 2%;
+  margin-left: 2%;
+}
+ul {
+  list-style-type: none;
+}
+.likePost {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
