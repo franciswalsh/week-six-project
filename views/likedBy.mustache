@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    <link rel="stylesheet" href="../public/main.css">
   </head>
   <body>
     <nav>
@@ -22,6 +23,7 @@
         <input type="submit" class="logOutButton" value="Log Out">
       </form>
     </nav>
+    <p>You are logged in as {{#theSession}}{{username}}{{/theSession}}</p>
     <h2>The post was liked by:</h2>
     <ul>
       {{#thisPostWasLikedBy}}

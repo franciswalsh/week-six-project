@@ -3,14 +3,17 @@
   <head>
     <meta charset="utf-8">
     <title>Log out</title>
+    <link rel="stylesheet" href="../public/main.css">
   </head>
   <body>
     <h3>Are you sure you want to log out?</h3>
-    <form id="yesLogout" action="/yesLogout/" method="post">
-      <input type="submit" id="yesLogout" value="yes">
-    </form>
-    <form id="noLogout" action="/noLogout/" method="post">
-      <input type="submit" id="noLogoutButton" value="no">
-    </form>
+    <div class="logoutContainer">
+      <form id="yesLogout" action="/yesLogout/" method="post">
+        <input type="submit" id="yesLogout" value="yes">
+      </form>
+      <form id="noLogout" action="/noLogout/" method="post">
+        <input type="submit" id="noLogoutButton" value="no">
+      </form>
+    </div>
   </body>
 </html>

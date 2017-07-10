@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Create a post</title>
+    <link rel="stylesheet" href="../public/main.css">
   </head>
   <body>
     <nav>
@@ -22,6 +23,6 @@
         <input type="submit" class="logOutButton" value="Log Out">
       </form>
     </nav>
-    <p>your profile</p>
+    <p>This is {{#theSession}}{{username}}{{/theSession}}'s Profile</p>
   </body>
 </html>

@@ -3,11 +3,12 @@
   <head>
     <meta charset="utf-8">
     <title>Welcome to FrankBook</title>
+    <link rel="stylesheet" href="../public/main.css">
   </head>
   <body>
     <h1>Welcome to FrankBook!</h1>
     <p>You are logged in as {{#theSession}}{{username}}{{/theSession}}</p>
-
+    
     <nav>
       <form class="homeScreenTab" action="/homeScreen" method="post">
         <input type="submit" class="homeScreenButton" value="Home Screen">

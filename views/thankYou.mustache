@@ -3,8 +3,10 @@
   <head>
     <meta charset="utf-8">
     <title>Thank you for siging up!</title>
+    <link rel="stylesheet" href="../public/main.css">
   </head>
   <body>
+    <h1>Hello {{#theSession}}{{username}}{{/theSession}}!</h1>
     <h1>Thank you for signing up for FrankBook!</h1>
     <p>Press the button below to sign in</p>
     <form id="login" action="/login/" method="post">

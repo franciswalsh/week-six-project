@@ -24,8 +24,10 @@
           <input type="submit" class="logOutButton" value="Log Out">
         </form>
       </nav>
+      <h1>Main Feed</h1>
+      <p>You are logged in as {{#theSession}}{{username}}{{/theSession}}</p>
+      <ul class="mainFeedPosts">
       {{#posts}}
-      <ul>
         <li>
           <div class="posts">
             <h4>posted by: {{username}}</h4>
@@ -36,8 +38,8 @@
             </form>
           </div>
         </li>
-      </ul>
       {{/posts}}
+    </ul>
     </div>
   </body>
 </html>
